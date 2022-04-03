@@ -1,10 +1,9 @@
 import telebot
 import random
+import Config
 import TenderParser as tp
 from datetime import datetime
 import os
-
-TOKEN = '5243674466:AAEpscGDckjJmf2ZBWW-sGqZcI661fyvHpM'
 
 # Состояния диалога
 STATE_START = 0
@@ -16,7 +15,7 @@ current_state = STATE_START
 input_date = ''
 input_keywords = ''
 
-bot = telebot.TeleBot(TOKEN)
+bot = telebot.TeleBot(Config.TOKEN)
 
 
 @bot.message_handler(commands=['getcompliment'])
