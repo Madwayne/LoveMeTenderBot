@@ -12,8 +12,9 @@ def get_tenders_list(date, phrases_list):
     for phrase in phrases_list:
         keywords = '+'.join(phrase.split(' '))
         tenders_list_url = SITE_URL + f'/epz/order/extendedsearch/results.html?searchString={keywords}&morphology=on&pageNumber=1&sortDirection=false&recordsPerPage=_50&showLotsInfoHidden=false&sortBy=UPDATE_DATE&fz44=on&fz223=on&fz94=on&af=on&currencyIdGeneral=-1&publishDateFrom={date}'
-        response = requests.get(tenders_list_url, headers={'User-Agent': UserAgent().chrome})
-        if not response.ok:
+        try:
+            response = requests.get(tenders_list_url, headers={'User-Agent': UserAgent().chrome})
+        except:
             return []
         html = response.content
         soup = BeautifulSoup(html, 'html.parser')
