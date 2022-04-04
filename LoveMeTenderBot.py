@@ -57,10 +57,10 @@ def enter_date_processing(message):
                              '✅ Принято! Теперь укажи поисковую фразу из описания тендера.',
                              parse_mode='Markdown')
             bot.send_message(message.chat.id,
-                             'Ты можешь указать несколько поисковых фраз, разделив их символом *&* - я поищу тендеры для каждой из них и верну общий список',
+                             'Ты можешь указать несколько поисковых фраз, разделив их символом */* - я поищу тендеры для каждой из них и верну общий список',
                              parse_mode='Markdown')
             bot.send_message(message.chat.id,
-                             'Пример: генеральный план*&*проект планировки*&*концепция',
+                             'Пример: генеральный план*/*проект планировки*/*концепция',
                              parse_mode='Markdown')
             global current_state
             current_state = STATE_WAIT_FOR_KEYWORDS
@@ -70,7 +70,7 @@ def enter_date_processing(message):
 def enter_keywords_processing(message):
     global input_keywords
     global current_state
-    input_phrases = message.text.split('&')
+    input_phrases = message.text.split('/')
     keywords_count = len(input_phrases)
     bot.send_message(message.chat.id,
                      f'✅ Так, введено поисковых фраз: *{keywords_count}*.\n Сейчас поищу что-ниудь, терпение... ⏱',
