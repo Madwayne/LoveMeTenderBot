@@ -25,8 +25,7 @@ def get_tenders_list(date, phrases_list):
 def get_tender_attributes(tender, attr_name):
     if attr_name == 'region':
         try:
-            subdiv = tender.find('div', class_='registry-entry__header-mid__number')
-            link = SITE_URL + subdiv.a['href']
+            link = SITE_URL + tender.find('div', class_='registry-entry__header-mid__number').a['href']
             response = requests.get(link, headers={'User-Agent': UserAgent().chrome})
             if not response.ok:
                 return []
@@ -38,50 +37,43 @@ def get_tender_attributes(tender, attr_name):
             return '[не найдено]'
     elif attr_name == 'description':
         try:
-            subdiv = tender.find('div', text=lambda x: x and 'Объект закупки' in x).next_sibling.next_sibling
-            description = subdiv.text.strip()
+            description = tender.find('div', class_='registry-entry__body-value').text.strip()
             return description
         except:
             return '[не найдено]'
     elif attr_name == 'customer':
         try:
-            subdiv = tender.find('div', class_='registry-entry__body-href')
-            customer = subdiv.text.strip()
+            customer = tender.find('div', class_='registry-entry__body-href').text.strip()
             return customer
         except:
             return '[не найдено]'
     elif attr_name == 'start_from':
         try:
-            subdiv = tender.find('div', text=lambda x: x and 'Размещено' in x).next_sibling.next_sibling
-            start_from = subdiv.text.strip()
+            start_from = tender.find('div', text=lambda x: x and 'Размещено' in x).next_sibling.next_sibling.text.strip()
             return start_from
         except:
             return '[не найдено]'
     elif attr_name == 'active_to':
         try:
-            subdiv = tender.find('div', text=lambda x: x and 'Окончание подачи заявок' in x).next_sibling.next_sibling
-            active_to = subdiv.text.strip()
+            active_to = tender.find('div', text=lambda x: x and 'Окончание подачи заявок' in x).next_sibling.next_sibling.text.strip()
             return active_to
         except:
             return '[не найдено]'
     elif attr_name == 'tender_type':
         try:
-            subdiv = tender.find('div', class_='col-9 p-0 registry-entry__header-top__title text-truncate')
-            tender_type = subdiv.text.strip().split()[0]
+            tender_type = tender.find('div', class_='col-9 p-0 registry-entry__header-top__title text-truncate').text.strip().split()[0]
             return tender_type
         except:
             return '[не найдено]'
     elif attr_name == 'start_price':
         try:
-            subdiv = tender.find('div', text=lambda x: x and 'Начальная цена' in x).next_sibling.next_sibling
-            start_price = subdiv.text.strip()
+            start_price = tender.find('div', class_='price-block__value').text.strip()
             return start_price
         except:
             return '[не найдено]'
     elif attr_name == 'link':
         try:
-            subdiv = tender.find('div', class_='registry-entry__header-mid__number')
-            link = SITE_URL + subdiv.a['href']
+            link = SITE_URL + tender.find('div', class_='registry-entry__header-mid__number').a['href']
             return link
         except:
             return '[не найдено]'

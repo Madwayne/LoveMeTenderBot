@@ -1,3 +1,5 @@
+import time
+
 import telebot
 import random
 import Config
@@ -110,4 +112,4 @@ def end_state_processing(message):
                      parse_mode='Markdown')
 
 
-bot.polling(none_stop=True)
+bot.infinity_polling(timeout=10, long_polling_timeout=5)
